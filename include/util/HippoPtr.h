@@ -28,13 +28,13 @@ public:
 
   T & operator[](size_t i)
   {
-    assert(i < _size && i >= 0);
+    assert(i < _size);
     return _ptr[i];
   }
 
   T const & operator[](size_t i) const
   {
-    assert(i < _size && i >= 0);
+    assert(i < _size);
     return _ptr[i];
   }
 

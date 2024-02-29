@@ -321,16 +321,16 @@ Foam2MooseMeshAdapter::nface()
 }
 
 FoamPoint const &
-Foam2MooseMeshAdapter::point(int32_t i)
+Foam2MooseMeshAdapter::point(uint32_t i)
 {
-  assert(i >= 0 && i < _point.size());
+  assert(i < _point.size());
   return _point[i];
 }
 
 FoamFace
-Foam2MooseMeshAdapter::face(int32_t i)
+Foam2MooseMeshAdapter::face(uint32_t i)
 {
-  assert(i >= 0 && i < _face_offset.size());
+  assert(i < _face_offset.size());
   return FoamFace(_face_point_id.begin() + _face_offset[i],
                   _face_point_id.begin() + _face_offset[i + 1],
                   _face_subdom[i],
