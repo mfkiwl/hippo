@@ -72,6 +72,5 @@ public:
   Foam::Time & getRuntime();
   Foam::argList & getArglist();
   Foam::fvMesh & getMesh();
-  Foam::Field<double> interpolateFaceToNode(int patch_id, Foam::fvPatchField<double> const & field);
 };
 }

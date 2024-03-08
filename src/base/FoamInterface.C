@@ -111,10 +111,4 @@ FoamInterface::getArglist()
 {
   return _impl->_args.args;
 }
-
-Foam::Field<double>
-FoamInterface::interpolateFaceToNode(int patch_id, Foam::fvPatchField<double> const & field)
-{
-  return _impl->interpolateFaceToNode(patch_id, field);
-}
 }

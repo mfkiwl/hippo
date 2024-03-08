@@ -15,6 +15,7 @@ public:
   // Append the patch's face temperatures to the vector T.
   // Return the number of items added.
   size_t append_patch_face_T(int patch_id, std::vector<double> & T);
+  size_t patch_size(int patch_id);
   std::unique_ptr<buoyantFoamImpl> _impl;
 };
 }

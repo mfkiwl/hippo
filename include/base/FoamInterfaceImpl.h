@@ -89,13 +89,6 @@ struct EnvImpl
     return Foam::PrimitivePatchInterpolation(patch_id);
   }
 #endif
-  Foam::Field<double> interpolateFaceToNode(int patch_id, Foam::fvPatchField<double> const & field)
-  {
-    // should construct if doesn't exist already
-    auto const [inter, poo] =
-        _interpolator.emplace(patch_id, std::make_unique<Interpolator>(getPatch(patch_id)));
-    return inter->second->faceToPointInterpolate(field)();
-  }
 
   Foam::Time & getRuntime() { return _runtime; }
   Foam::argList & getArglist() { return _args.args; }

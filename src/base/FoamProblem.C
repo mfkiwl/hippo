@@ -2,6 +2,7 @@
 #include "FoamInterface.h"
 #include "FoamMesh.h"
 #include "AuxiliarySystem.h"
+#include <iterator>
 
 registerMooseObject("hippoApp", FoamProblem);
 
@@ -97,7 +98,47 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
   }
   else if (dir == ExternalProblem::Direction::TO_EXTERNAL_APP)
   {
-    ;
+
+    auto subdomains = mesh.getSubdomainList();
+    // The number of elements in each subdomain of the mesh
+    // Allocate an extra element as we'll accumulate these counts later
+    std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
+    for (auto i = 0U; i < subdomains.size(); ++i)
+    {
+      patch_counts[i] = _app.patch_size(subdomains[i]);
+    }
+    std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
+
+    /*
+      Can we use 'mesh.getActiveLocalElementRange()' instead of iterating over
+      patches and calling 'getElemPtr'?
+    */
+
+    // Retrieve the values from MOOSE
+    std::vector<double> moose_T;
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    for (auto i = 0U; i < subdomains.size(); ++i)
+    {
+      // Set the face temperatures on the OpenFOAM mesh
+      for (int elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
+      {
+        std::vector<double> buf;
+        auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
+        assert(elem_ptr);
+        auto dof = elem_ptr->dof_number(_aux->number(), _face_T, 0);
+        _aux->solution().get({dof}, buf);
+        std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
+      }
+      moose_T.emplace_back(0.0); // For debugging, separate each subdomain
+    }
+
+    printf("moose_T: [\n");
+    for (auto el : moose_T)
+    {
+      printf("  %f,\n", el);
+    }
+    printf("]\n");
   }
 }
 
