@@ -9,13 +9,9 @@
     initial_condition = 1.0
   []
 []
-[Variables]
-  [FOO]
-    initial_condition = 10.0
-  []
-[]
 [Problem]
   type=BuoyantFoamProblem
+  # solve = false
 []
 [Executioner]
   type = Transient

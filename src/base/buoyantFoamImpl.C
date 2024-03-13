@@ -639,6 +639,15 @@ public:
     // without looking into the boundary field of the temperature.
     return thermo.T().boundaryField()[patch_id].size();
   }
+
+  void set_patch_face_temperatures(int patch_id, const std::vector<double> & moose_T)
+  {
+    auto & patch = thermo.T().boundaryFieldRef()[patch_id];
+    printf("moose_T.size()=%lu\n", moose_T.size());
+    printf("patch.size()=%d\n", patch.size());
+    // assert(moose_T.size() == patch.size());
+    std::copy(moose_T.begin(), moose_T.end(), patch.begin());
+  }
 };
 
 buoyantFoamApp::~buoyantFoamApp() = default;
@@ -666,4 +675,11 @@ buoyantFoamApp::patch_size(int patch_id)
 {
   return _impl->patch_size(patch_id);
 }
+
+void
+buoyantFoamApp::set_patch_face_t(int patch_id, const std::vector<double> & moose_T)
+{
+  _impl->set_patch_face_temperatures(patch_id, moose_T);
+}
+
 }

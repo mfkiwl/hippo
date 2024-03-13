@@ -116,29 +116,54 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
 
     // Retrieve the values from MOOSE
     std::vector<double> moose_T;
+    std::vector<double> moose_Ts;
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     for (auto i = 0U; i < subdomains.size(); ++i)
     {
+      std::vector<double> buf;
       // Set the face temperatures on the OpenFOAM mesh
-      for (int elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
+      for (size_t elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
       {
-        std::vector<double> buf;
         auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
         assert(elem_ptr);
+        // Find the dof number of the element
         auto dof = elem_ptr->dof_number(_aux->number(), _face_T, 0);
+
+        // Insert the element's temperature into the moose temperature vector
         _aux->solution().get({dof}, buf);
         std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
+        std::copy(buf.begin(), buf.end(), std::back_inserter(moose_Ts));
       }
-      moose_T.emplace_back(0.0); // For debugging, separate each subdomain
+      _app.set_patch_face_t(subdomains[i], moose_T);
+      moose_T.clear();
+      // moose_T.emplace_back(0.0); // For debugging, separate each subdomain
     }
 
-    printf("moose_T: [\n");
-    for (auto el : moose_T)
     {
-      printf("  %f,\n", el);
+      std::vector<Real> foam_vol_t;
+      auto subdomains = mesh.getSubdomainList();
+      // The number of elements in each subdomain of the mesh
+      // Allocate an extra element as we'll accumulate these counts later
+      std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
+      for (auto i = 0U; i < subdomains.size(); ++i)
+      {
+        patch_counts[i] = _app.append_patch_face_T(subdomains[i], foam_vol_t);
+      }
+      std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
+
+      printf("moose_T (%lu)       foam_vol_t (%lu) \n", moose_Ts.size(), foam_vol_t.size());
+      for (auto i = 0U; i < moose_Ts.size(); ++i)
+      {
+        printf(" %f          %f\n", moose_Ts[i], foam_vol_t[i]);
+      }
+      printf("\n");
     }
-    printf("]\n");
+
+    // for (auto subdomain : subdomains)
+    // {
+    //   _app.set_patch_face_t(subdomain, moose_T);
+    // }
   }
 }
 
