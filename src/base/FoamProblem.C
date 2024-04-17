@@ -2,7 +2,6 @@
 #include "FoamInterface.h"
 #include "FoamMesh.h"
 #include "AuxiliarySystem.h"
-#include <iterator>
 
 registerMooseObject("hippoApp", FoamProblem);
 
