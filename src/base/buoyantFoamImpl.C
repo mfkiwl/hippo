@@ -643,9 +643,7 @@ public:
   void set_patch_face_temperatures(int patch_id, const std::vector<double> & moose_T)
   {
     auto & patch = thermo.T().boundaryFieldRef()[patch_id];
-    printf("moose_T.size()=%lu\n", moose_T.size());
-    printf("patch.size()=%d\n", patch.size());
-    // assert(moose_T.size() == patch.size());
+    assert(moose_T.size() == static_cast<size_t>(patch.size()));
     std::copy(moose_T.begin(), moose_T.end(), patch.begin());
   }
 };
