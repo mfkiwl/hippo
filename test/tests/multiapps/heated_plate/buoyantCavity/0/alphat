@@ -20,25 +20,41 @@ internalField   uniform 0;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    topAndBottom
+
+    fluid_bottom
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    hot
+
+    fluid_left
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    cold
+
+    fluid_front
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    fluid_right
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+
+    fluid_top
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;

@@ -20,22 +20,32 @@ internalField   uniform 0;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            nutUWallFunction;
         value           uniform 0;
     }
-    topAndBottom
+    fluid_bottom
     {
         type            nutUWallFunction;
         value           uniform 0;
     }
-    hot
+    fluid_left
     {
         type            nutUWallFunction;
         value           uniform 0;
     }
-    cold
+    fluid_front
+    {
+        type            nutUWallFunction;
+        value           uniform 0;
+    }
+    fluid_right
+    {
+        type            nutUWallFunction;
+        value           uniform 0;
+    }
+    fluid_top
     {
         type            nutUWallFunction;
         value           uniform 0;

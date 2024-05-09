@@ -20,22 +20,32 @@ internalField   uniform 4e-06;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            epsilonWallFunction;
         value           uniform 4e-06;
     }
-    topAndBottom
+    fluid_bottom
     {
         type            epsilonWallFunction;
         value           uniform 4e-06;
     }
-    hot
+    fluid_left
     {
         type            epsilonWallFunction;
         value           uniform 4e-06;
     }
-    cold
+    fluid_front
+    {
+        type            epsilonWallFunction;
+        value           uniform 4e-06;
+    }
+    fluid_right
+    {
+        type            epsilonWallFunction;
+        value           uniform 4e-06;
+    }
+    fluid_top
     {
         type            epsilonWallFunction;
         value           uniform 4e-06;

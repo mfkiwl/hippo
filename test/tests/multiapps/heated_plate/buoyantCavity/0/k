@@ -20,22 +20,32 @@ internalField   uniform 3.75e-04;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            kqRWallFunction;
         value           uniform 3.75e-04;
     }
-    topAndBottom
+    fluid_bottom
     {
         type            kqRWallFunction;
         value           uniform 3.75e-04;
     }
-    hot
+    fluid_left
     {
         type            kqRWallFunction;
         value           uniform 3.75e-04;
     }
-    cold
+    fluid_front
+    {
+        type            kqRWallFunction;
+        value           uniform 3.75e-04;
+    }
+    fluid_right
+    {
+        type            kqRWallFunction;
+        value           uniform 3.75e-04;
+    }
+    fluid_top
     {
         type            kqRWallFunction;
         value           uniform 3.75e-04;

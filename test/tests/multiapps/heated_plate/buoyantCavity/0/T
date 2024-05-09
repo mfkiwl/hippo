@@ -16,30 +16,45 @@ FoamFile
 
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 293;
+internalField   uniform 300;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            zeroGradient;
+        // type            fixedValue;
+        // value           uniform 307.75; // 34.6 degC
     }
-
-    topAndBottom
+    fluid_bottom
     {
         type            zeroGradient;
+        // type            fixedValue;
+        // value           uniform 307.75; // 34.6 degC
     }
-
-    hot
+    fluid_left
     {
-        type            fixedValue;
-        value           uniform 307.75; // 34.6 degC
+        type            zeroGradient;
+        // type            fixedValue;
+        // value           uniform 307.75; // 34.6 degC
     }
-
-    cold
+    fluid_front
     {
-        type            fixedValue;
-        value           uniform 288.15; // 15 degC
+        type            zeroGradient;
+        // type            fixedValue;
+        // value           uniform 307.75; // 34.6 degC
+    }
+    fluid_right
+    {
+        type            zeroGradient;
+        // type            fixedValue;
+        // value           uniform 307.75; // 34.6 degC
+    }
+    fluid_top
+    {
+        type            zeroGradient;
+        // type            fixedValue;
+        // value           uniform 307.75; // 34.6 degC
     }
 }
 

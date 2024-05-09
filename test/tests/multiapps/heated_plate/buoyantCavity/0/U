@@ -20,22 +20,31 @@ internalField   uniform (0 0 0);
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            noSlip;
     }
 
-    topAndBottom
+    fluid_bottom
     {
         type            noSlip;
     }
 
-    hot
+    fluid_left
     {
         type            noSlip;
     }
 
-    cold
+    fluid_front
+    {
+        type            noSlip;
+    }
+    fluid_right
+    {
+        type            noSlip;
+    }
+
+    fluid_top
     {
         type            noSlip;
     }

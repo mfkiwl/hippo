@@ -14,84 +14,49 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-11
+6
 (
-    patch0
+    fluid_back
     {
-        type            patch;
+        type            wall;
         physicalType    patch;
         nFaces          1050;
-        startFace       2210;
+        startFace       2015;
     }
-    patch1
+    fluid_bottom
     {
-        type            patch;
-        physicalType    patch;
-        nFaces          50;
-        startFace       3260;
-    }
-    patch2
-    {
-        type            patch;
-        physicalType    patch;
-        nFaces          15;
-        startFace       3310;
-    }
-    patch3
-    {
-        type            patch;
-        physicalType    patch;
-        nFaces          1050;
-        startFace       3325;
-    }
-    patch4
-    {
-        type            patch;
-        physicalType    patch;
-        nFaces          15;
-        startFace       4375;
-    }
-    patch5
-    {
-        type            patch;
+        type            wall;
         physicalType    patch;
         nFaces          70;
-        startFace       4390;
+        startFace       3065;
     }
-    patch6
+    fluid_left
     {
-        type            patch;
+        type            wall;
         physicalType    patch;
-        nFaces          100;
-        startFace       4460;
+        nFaces          15;
+        startFace       3135;
     }
-    patch7
+    fluid_front
     {
-        type            patch;
+        type            wall;
         physicalType    patch;
-        nFaces          20;
-        startFace       4560;
+        nFaces          1050;
+        startFace       3150;
     }
-    patch8
+    fluid_right
     {
-        type            patch;
+        type            wall;
         physicalType    patch;
-        nFaces          5;
-        startFace       4580;
+        nFaces          15;
+        startFace       4200;
     }
-    patch9
+    fluid_top
     {
-        type            patch;
+        type            wall;
         physicalType    patch;
-        nFaces          100;
-        startFace       4585;
-    }
-    patch10
-    {
-        type            patch;
-        physicalType    patch;
-        nFaces          5;
-        startFace       4685;
+        nFaces          70;
+        startFace       4215;
     }
 )
 

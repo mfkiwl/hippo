@@ -20,27 +20,34 @@ internalField   uniform 1e5;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
-        type            calculated;
+        type calculated;
         value           $internalField;
     }
-
-    topAndBottom
+    fluid_bottom
     {
-        type            calculated;
+        type calculated;
         value           $internalField;
     }
-
-    hot
+    fluid_left
     {
-        type            calculated;
+        type calculated;
         value           $internalField;
     }
-
-    cold
+    fluid_front
     {
-        type            calculated;
+        type calculated;
+        value           $internalField;
+    }
+    fluid_right
+    {
+        type calculated;
+        value           $internalField;
+    }
+    fluid_top
+    {
+        type calculated;
         value           $internalField;
     }
 }

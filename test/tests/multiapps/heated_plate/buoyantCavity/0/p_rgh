@@ -20,25 +20,32 @@ internalField   uniform 0;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            fixedFluxPressure;
         value           $internalField;
     }
-
-    topAndBottom
+    fluid_bottom
     {
         type            fixedFluxPressure;
         value           $internalField;
     }
-
-    hot
+    fluid_left
     {
         type            fixedFluxPressure;
         value           $internalField;
     }
-
-    cold
+    fluid_front
+    {
+        type            fixedFluxPressure;
+        value           $internalField;
+    }
+    fluid_right
+    {
+        type            fixedFluxPressure;
+        value           $internalField;
+    }
+    fluid_top
     {
         type            fixedFluxPressure;
         value           $internalField;

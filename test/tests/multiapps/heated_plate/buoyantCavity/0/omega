@@ -20,22 +20,32 @@ internalField   uniform 0.12;
 
 boundaryField
 {
-    frontAndBack
+    fluid_back
     {
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    topAndBottom
+    fluid_bottom
     {
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    hot
+    fluid_left
     {
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    cold
+    fluid_front
+    {
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    fluid_right
+    {
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    fluid_top
     {
         type            omegaWallFunction;
         value           uniform 0.12;
