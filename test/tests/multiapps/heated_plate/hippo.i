@@ -7,7 +7,7 @@
 
 [AuxVariables]
   [T]
-    initial_condition = 300
+    initial_condition = 250
   []
 []
 

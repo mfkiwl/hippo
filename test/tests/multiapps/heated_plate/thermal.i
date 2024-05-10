@@ -16,8 +16,39 @@
     []
 []
 
+[MultiApps]
+    [hippo]
+        type = TransientMultiApp
+        app_type = hippoApp
+        execute_on = timestep_end
+        input_files = 'hippo.i'
+        # positions = '0 0 0
+        #              0 0 0
+        #              0 0 0
+        #              0 0 0'
+    []
+[]
+
+[Transfers]
+    [T_from_fluid]
+        type = MultiAppGeneralFieldNearestNodeTransfer
+        source_variable = T
+        from_multi_app = hippo
+        variable = fluid_T
+    []
+[]
+
+
 [Variables]
-    [T]
+    [temp]
+        family = LAGRANGE
+        order = FIRST
+        initial_condition = 300
+    []
+[]
+
+[AuxVariables]
+    [fluid_T]
         family = LAGRANGE
         order = FIRST
         initial_condition = 300
@@ -27,20 +58,26 @@
 [Kernels]
     [heat-conduction]
         type = ADHeatConduction
-        variable = T
+        variable = temp
     []
     [heat-conduction-dt]
         type = ADHeatConductionTimeDerivative
-        variable = T
+        variable = temp
     []
 []
 
 [BCs]
     [fixed_temp]
         type = DirichletBC
-        variable = T
+        variable = temp
         boundary = solid_bottom
         value = 310
+    []
+    [fluid_interface]
+        type = MatchedValueBC
+        variable = temp
+        boundary = solid_top
+        v = fluid_T
     []
 []
 
@@ -53,18 +90,19 @@
     [thermal-conduction]
         type = ADHeatConductionMaterial
         specific_heat = 420
-        thermal_conductivity = 100
+        thermal_conductivity = 25
     []
 []
 
 [Executioner]
     type = Transient
+    start_time = 0
     end_time = 1
     dt = 0.05
 
     solve_type = 'PJFNK'
 
-    petsc_options = '-snes_ksp_ew'
+    # petsc_options = '-snes_ksp_ew'
     petsc_options_iname = '-pc_type -pc_hypre_type'
     petsc_options_value = 'hypre boomeramg'
     l_tol = 1e-6
