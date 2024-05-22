@@ -2,6 +2,8 @@
 #include "FoamInterface.h"
 #include "FoamMesh.h"
 #include "AuxiliarySystem.h"
+#include "MooseTypes.h"
+#include "libmesh/fe_type.h"
 
 registerMooseObject("hippoApp", FoamProblem);
 
@@ -9,6 +11,10 @@ InputParameters
 FoamProblem::validParams()
 {
   auto params = ExternalProblem::validParams();
+  params.addRequiredParam<std::string>(
+      FoamProblem::OUTPUT_VARIABLE_NAME,
+      "The name of the variable to write the OpenFOAM boundary temperature into. "
+      "An AuxVariable will be created with order=CONSTANT and family=MONOMIAL.");
   return params;
 }
 
@@ -31,13 +37,12 @@ registerMooseObject("hippoApp", BuoyantFoamProblem);
 InputParameters
 BuoyantFoamProblem::validParams()
 {
-  auto params = ExternalProblem::validParams();
+  auto params = FoamProblem::validParams();
   return params;
 }
 
 BuoyantFoamProblem::BuoyantFoamProblem(InputParameters const & params)
   : FoamProblem(params), _app(_interface)
-// TODO: Assuming the temp var is "T" should pass the name in
 {
 }
 
@@ -47,8 +52,9 @@ BuoyantFoamProblem::addExternalVariables()
   InputParameters params = _factory.getValidParams("MooseVariable");
   params.set<MooseEnum>("family") = "MONOMIAL";
   params.set<MooseEnum>("order") = "CONSTANT";
-  addAuxVariable("MooseVariable", "foamT_face", params);
-  _face_T = _aux->getFieldVariable<Real>(0, "foamT_face").number();
+  const auto out_var_id = parameters().get<std::string>(FoamProblem::OUTPUT_VARIABLE_NAME);
+  addAuxVariable("MooseVariable", out_var_id, params);
+  _face_T = _aux->getFieldVariable<Real>(0, out_var_id).number();
 }
 
 void

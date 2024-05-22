@@ -11,6 +11,7 @@
 []
 [Problem]
   type=FoamProblem
+  output_variable = foamT_face
 []
 [Executioner]
   type = Transient

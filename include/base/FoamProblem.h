@@ -26,6 +26,8 @@ public:
   virtual FoamMesh const & mesh() const override { return *_foam_mesh; }
   virtual FoamMesh & mesh() override { return *_foam_mesh; }
 
+  static constexpr auto OUTPUT_VARIABLE_NAME = "output_variable";
+
   // /**
   //  * Backs up the application to the folder \p folder_base
   //  *
@@ -42,6 +44,7 @@ public:
 protected:
   FoamMesh * _foam_mesh = nullptr;
   Hippo::FoamInterface * _interface = nullptr;
+  unsigned _face_T{0};
 };
 
 /* Specific class to run buoyantFoam problems */
@@ -58,7 +61,6 @@ public:
 
 protected:
   Hippo::buoyantFoamApp _app;
-  unsigned _face_T{0};
 };
 
 // Local Variables:

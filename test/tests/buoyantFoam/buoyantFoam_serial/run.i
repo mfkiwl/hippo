@@ -16,7 +16,9 @@
 []
 [Problem]
   type=BuoyantFoamProblem
+  output_variable = foamT_face
 []
+
 [Executioner]
   type = Transient
   start_time = 0
@@ -25,6 +27,7 @@
   solve_type = 'PJFNK'
   petsc_options_iname = '-pc_type -pc_hypre_type'
   petsc_options_value = 'hypre boomeramg'
+
   [./TimeStepper]
     type = FoamTimeStepper
   [../]
