@@ -49,12 +49,6 @@ BuoyantFoamProblem::BuoyantFoamProblem(InputParameters const & params)
 void
 BuoyantFoamProblem::addExternalVariables()
 {
-  InputParameters params = _factory.getValidParams("MooseVariable");
-  params.set<MooseEnum>("family") = "MONOMIAL";
-  params.set<MooseEnum>("order") = "CONSTANT";
-  const auto out_var_id = parameters().get<std::string>(FoamProblem::OUTPUT_VARIABLE_NAME);
-  addAuxVariable("MooseVariable", out_var_id, params);
-  _face_T = _aux->getFieldVariable<Real>(0, out_var_id).number();
 }
 
 void
@@ -66,7 +60,11 @@ BuoyantFoamProblem::externalSolve()
 void
 BuoyantFoamProblem::syncSolutions(Direction dir)
 {
-  auto & mesh = static_cast<FoamMesh &>(this->mesh());
+  auto & mesh = this->mesh();
+
+  const auto out_var_id = parameters().get<std::string>(FoamProblem::OUTPUT_VARIABLE_NAME);
+  auto & var = getVariable(0, out_var_id);
+  _face_T = var.number();
 
   if (dir == ExternalProblem::Direction::FROM_EXTERNAL_APP)
   {
@@ -95,11 +93,11 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
       {
         auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
         assert(elem_ptr);
-        auto dof = elem_ptr->dof_number(_aux->number(), _face_T, 0);
-        _aux->solution().set(dof, foam_vol_t[elem]);
+        auto dof = elem_ptr->dof_number(var.sys().number(), _face_T, 0);
+        var.sys().solution().set(dof, foam_vol_t[elem]);
       }
     }
-    _aux->solution().close();
+    var.sys().solution().close();
   }
   else if (dir == ExternalProblem::Direction::TO_EXTERNAL_APP)
   {
@@ -126,10 +124,10 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
         auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
         assert(elem_ptr);
         // Find the dof number of the element
-        auto dof = elem_ptr->dof_number(_aux->number(), _face_T, 0);
+        auto dof = elem_ptr->dof_number(var.number(), _face_T, 0);
 
         // Insert the element's temperature into the moose temperature vector
-        _aux->solution().get({dof}, buf);
+        var.sys().solution().get({dof}, buf);
         std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
       }
       _app.set_patch_face_t(subdomains[i], moose_T);

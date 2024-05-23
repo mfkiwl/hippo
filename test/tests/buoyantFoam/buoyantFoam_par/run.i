@@ -10,6 +10,10 @@
   []
 []
 [Variables]
+  [foamT_face]
+    family = MONOMIAL
+    order = CONSTANT
+  []
   [FOO]
     initial_condition = 10.0
   []

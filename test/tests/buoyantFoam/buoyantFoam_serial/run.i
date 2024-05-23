@@ -10,6 +10,11 @@
   []
 []
 [Variables]
+  [foamT_face]
+    family = MONOMIAL
+    order = CONSTANT
+  []
+  # Note that this test crashes if [FOO] is declared first...
   [FOO]
     initial_condition = 10.0
   []
