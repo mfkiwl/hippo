@@ -13,8 +13,7 @@ FoamProblem::validParams()
   auto params = ExternalProblem::validParams();
   params.addRequiredParam<std::string>(
       FoamProblem::OUTPUT_VARIABLE_NAME,
-      "The name of the variable to write the OpenFOAM boundary temperature into. "
-      "An AuxVariable will be created with order=CONSTANT and family=MONOMIAL.");
+      "The name of the variable to write the OpenFOAM boundary temperature into.");
   return params;
 }
 
@@ -132,7 +131,6 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
       }
       _app.set_patch_face_t(subdomains[i], moose_T);
       moose_T.clear();
-      // moose_T.emplace_back(0.0); // For debugging, separate each subdomain
     }
   }
 }

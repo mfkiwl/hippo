@@ -22,16 +22,12 @@
         app_type = hippoApp
         execute_on = timestep_end
         input_files = 'hippo.i'
-        # positions = '0 0 0
-        #              0 0 0
-        #              0 0 0
-        #              0 0 0'
     []
 []
 
 [Transfers]
     [T_from_fluid]
-        type = MultiAppGeneralFieldNearestNodeTransfer
+        type = MultiAppGeometricInterpolationTransfer
         source_variable = T
         from_multi_app = hippo
         variable = fluid_T

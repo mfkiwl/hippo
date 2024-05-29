@@ -5,17 +5,16 @@
   dim=2
 []
 
-[AuxVariables]
-  [T]
-    initial_condition = 250
-  []
-[]
-
 [Variables]
+  [T]
+    family = MONOMIAL
+    order = CONSTANT
+  []
 []
 
 [Problem]
   type=BuoyantFoamProblem
+  output_variable = T
 []
 
 [Executioner]
