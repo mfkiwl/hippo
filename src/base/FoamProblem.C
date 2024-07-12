@@ -1,9 +1,12 @@
+#include "FoamInterfaceImpl.h"
 #include "FoamProblem.h"
 #include "FoamInterface.h"
 #include "FoamMesh.h"
 #include "AuxiliarySystem.h"
 #include "MooseTypes.h"
 #include "libmesh/fe_type.h"
+#include "functionObjects/field/wallHeatFlux/wallHeatFlux.H"
+#include "objectRegistry.H"
 
 registerMooseObject("hippoApp", FoamProblem);
 
@@ -77,9 +80,21 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
     // The number of elements in each subdomain of the mesh
     // Allocate an extra element as we'll accumulate these counts later
     std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
+    printf("subdomains.size(): %lu\n", subdomains.size());
     for (auto i = 0U; i < subdomains.size(); ++i)
     {
-      patch_counts[i] = _app.append_patch_face_T(subdomains[i], foam_vol_t);
+      // patch_counts[i] = _app.append_patch_face_T(subdomains[i], foam_vol_t);
+      auto & whf = _interface->getWallHeatFlux(subdomains[i]);
+      printf("whf = ");
+      for (const auto v : whf)
+      {
+        foam_vol_t.emplace_back(v);
+        printf("  %f ", v);
+      }
+      printf("\n");
+      patch_counts[i] = whf.size();
+      // auto patch_boundary = hf[i];
+      // std::copy(hf[i])
     }
     std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
 
@@ -100,38 +115,38 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
   }
   else if (dir == ExternalProblem::Direction::TO_EXTERNAL_APP)
   {
-    auto subdomains = mesh.getSubdomainList();
-    // The number of elements in each subdomain of the mesh
-    // Allocate an extra element as we'll accumulate these counts later
-    std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
-    for (auto i = 0U; i < subdomains.size(); ++i)
-    {
-      patch_counts[i] = _app.patch_size(subdomains[i]);
-    }
-    std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
+    // auto subdomains = mesh.getSubdomainList();
+    // // The number of elements in each subdomain of the mesh
+    // // Allocate an extra element as we'll accumulate these counts later
+    // std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
+    // for (auto i = 0U; i < subdomains.size(); ++i)
+    // {
+    //   patch_counts[i] = _app.patch_size(subdomains[i]);
+    // }
+    // std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
 
-    // Retrieve the values from MOOSE
-    std::vector<double> moose_T;
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    for (auto i = 0U; i < subdomains.size(); ++i)
-    {
-      std::vector<double> buf;
-      // Set the face temperatures on the OpenFOAM mesh
-      for (size_t elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
-      {
-        auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
-        assert(elem_ptr);
-        // Find the dof number of the element
-        auto dof = elem_ptr->dof_number(var.number(), _face_T, 0);
+    // // Retrieve the values from MOOSE
+    // std::vector<double> moose_T;
+    // int rank;
+    // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    // for (auto i = 0U; i < subdomains.size(); ++i)
+    // {
+    //   std::vector<double> buf;
+    //   // Set the face temperatures on the OpenFOAM mesh
+    //   for (size_t elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
+    //   {
+    //     auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
+    //     assert(elem_ptr);
+    //     // Find the dof number of the element
+    //     auto dof = elem_ptr->dof_number(var.number(), _face_T, 0);
 
-        // Insert the element's temperature into the moose temperature vector
-        var.sys().solution().get({dof}, buf);
-        std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
-      }
-      _app.set_patch_face_t(subdomains[i], moose_T);
-      moose_T.clear();
-    }
+    //     // Insert the element's temperature into the moose temperature vector
+    //     var.sys().solution().get({dof}, buf);
+    //     std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
+    //   }
+    //   _app.set_patch_face_t(subdomains[i], moose_T);
+    //   moose_T.clear();
+    // }
   }
 }
 

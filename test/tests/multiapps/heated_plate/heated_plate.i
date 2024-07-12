@@ -21,7 +21,7 @@
         type = TransientMultiApp
         app_type = hippoApp
         execute_on = timestep_end
-        input_files = 'hippo.i'
+        input_files = 'fluid.i'
     []
 []
 
@@ -32,14 +32,34 @@
         from_multi_app = hippo
         variable = fluid_T
     []
-[]
 
+    [T_to_fluid]
+        # How do we do this transfer?
+        # I guess we need a variable that holds the boundary values that we'll
+        # copy to the MOOSE mesh?
+
+        # This case is 'nice' in that the whole 'solid_top' boundary is
+        # incident on the fluid domain. What happens if part of the boundary is
+        # not incident on the fluid domain?
+        # Maybe the 'transfer' will deal with this for us?
+
+        # Also, how do we deal with having multiple solid/fluid domains?
+        # I guess we can just define a transfer for every solid/fluid boundary.
+
+        # Enabling this transfer (or the nearest node one) are causing a
+        # libMesh access error... joy
+        type = MultiAppGeometricInterpolationTransfer
+        source_variable = temp
+        to_multi_app = hippo
+        variable = T
+    []
+[]
 
 [Variables]
     [temp]
         family = LAGRANGE
         order = FIRST
-        initial_condition = 300
+        initial_condition = 350
     []
 []
 
@@ -67,7 +87,7 @@
         type = DirichletBC
         variable = temp
         boundary = solid_bottom
-        value = 310
+        value = 400
     []
     [fluid_interface]
         type = MatchedValueBC

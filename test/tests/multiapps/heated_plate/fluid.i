@@ -5,12 +5,32 @@
   dim=2
 []
 
+# fluid.i
+
 [Variables]
+  [FOO]
+    family = MONOMIAL
+    order = CONSTANT
+    initial_condition = 1
+  []
+[]
+
+[AuxVariables]
   [T]
     family = MONOMIAL
     order = CONSTANT
+    initial_condition = 300
   []
 []
+
+# [BCs]
+#   [fluid_temp]
+#     type = MatchedValueBC
+#     variable = T
+#     boundary = fluid_bottom
+#     v = solid_T
+#   []
+# []
 
 [Problem]
   type=BuoyantFoamProblem

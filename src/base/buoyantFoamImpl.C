@@ -645,6 +645,7 @@ public:
     auto & patch = thermo.T().boundaryFieldRef()[patch_id];
     assert(moose_T.size() == static_cast<size_t>(patch.size()));
     std::copy(moose_T.begin(), moose_T.end(), patch.begin());
+    printf("setting patch face temp: %f\n", moose_T.at(0));
   }
 };
 
