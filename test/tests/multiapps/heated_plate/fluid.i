@@ -5,8 +5,6 @@
   dim=2
 []
 
-# fluid.i
-
 [Variables]
   [FOO]
     family = MONOMIAL
@@ -23,15 +21,6 @@
   []
 []
 
-# [BCs]
-#   [fluid_temp]
-#     type = MatchedValueBC
-#     variable = T
-#     boundary = fluid_bottom
-#     v = solid_T
-#   []
-# []
-
 [Problem]
   type=BuoyantFoamProblem
   output_variable = T
@@ -41,7 +30,7 @@
   type = Transient
   start_time = 0
   end_time = 1
-  dt = 0.05
+  dt = 0.1
   solve_type = 'PJFNK'
   petsc_options_iname = '-pc_type -pc_hypre_type'
   petsc_options_value = 'hypre boomeramg'

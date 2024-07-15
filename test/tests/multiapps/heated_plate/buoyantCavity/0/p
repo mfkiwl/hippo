@@ -16,39 +16,39 @@ FoamFile
 
 dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform 1e5;
+internalField   uniform 100000;
 
 boundaryField
 {
     fluid_back
     {
-        type calculated;
-        value           $internalField;
+        type            calculated;
+        value           uniform 100000;
     }
     fluid_bottom
     {
-        type calculated;
-        value           $internalField;
+        type            calculated;
+        value           uniform 100000;
     }
     fluid_left
     {
-        type calculated;
-        value           $internalField;
+        type            calculated;
+        value           uniform 100000;
     }
     fluid_front
     {
-        type calculated;
-        value           $internalField;
+        type            calculated;
+        value           uniform 100000;
     }
     fluid_right
     {
-        type calculated;
-        value           $internalField;
+        type            calculated;
+        value           uniform 100000;
     }
     fluid_top
     {
-        type calculated;
-        value           $internalField;
+        type            calculated;
+        value           uniform 100000;
     }
 }
 

@@ -22,31 +22,43 @@ boundaryField
 {
     fluid_back
     {
+        beta1           0.075;
+        blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
     fluid_bottom
     {
+        beta1           0.075;
+        blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
     fluid_left
     {
+        beta1           0.075;
+        blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
     fluid_front
     {
+        beta1           0.075;
+        blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
     fluid_right
     {
+        beta1           0.075;
+        blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
     fluid_top
     {
+        beta1           0.075;
+        blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }

@@ -121,6 +121,12 @@ FoamInterface::getArglist()
   return _impl->_args.args;
 }
 
+void
+FoamInterface::write()
+{
+  _impl->getMesh().write();
+}
+
 Foam::fvPatchField<double> const &
 FoamInterface::getWallHeatFlux(const Foam::label patch_id)
 {

@@ -16,39 +16,39 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 3.75e-04;
+internalField   uniform 0.000375;
 
 boundaryField
 {
     fluid_back
     {
         type            kqRWallFunction;
-        value           uniform 3.75e-04;
+        value           uniform 0.000375;
     }
     fluid_bottom
     {
         type            kqRWallFunction;
-        value           uniform 3.75e-04;
+        value           uniform 0.000375;
     }
     fluid_left
     {
         type            kqRWallFunction;
-        value           uniform 3.75e-04;
+        value           uniform 0.000375;
     }
     fluid_front
     {
         type            kqRWallFunction;
-        value           uniform 3.75e-04;
+        value           uniform 0.000375;
     }
     fluid_right
     {
         type            kqRWallFunction;
-        value           uniform 3.75e-04;
+        value           uniform 0.000375;
     }
     fluid_top
     {
         type            kqRWallFunction;
-        value           uniform 3.75e-04;
+        value           uniform 0.000375;
     }
 }
 

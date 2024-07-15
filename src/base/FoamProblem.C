@@ -84,6 +84,15 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
     for (auto i = 0U; i < subdomains.size(); ++i)
     {
       // patch_counts[i] = _app.append_patch_face_T(subdomains[i], foam_vol_t);
+
+      /** TODO:
+       * PreCICE uses:
+       *   boundaryField()[patchID].snGrad() * -kappa
+       * for the heat flux, where kappa = effective conductivity.
+       *
+       * Is this different to wallHeatFlux?
+       */
+
       auto & whf = _interface->getWallHeatFlux(subdomains[i]);
       printf("whf = ");
       for (const auto v : whf)
@@ -109,44 +118,49 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
         assert(elem_ptr);
         auto dof = elem_ptr->dof_number(var.sys().number(), _face_T, 0);
         var.sys().solution().set(dof, foam_vol_t[elem]);
+
+        // TODO: does the above need to be negative, such that the flux is reversed? I.e.:
+        // var.sys().solution().set(dof, -foam_vol_t[elem]);
       }
     }
     var.sys().solution().close();
   }
   else if (dir == ExternalProblem::Direction::TO_EXTERNAL_APP)
   {
-    // auto subdomains = mesh.getSubdomainList();
-    // // The number of elements in each subdomain of the mesh
-    // // Allocate an extra element as we'll accumulate these counts later
-    // std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
-    // for (auto i = 0U; i < subdomains.size(); ++i)
-    // {
-    //   patch_counts[i] = _app.patch_size(subdomains[i]);
-    // }
-    // std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
+    auto subdomains = mesh.getSubdomainList();
+    // The number of elements in each subdomain of the mesh
+    // Allocate an extra element as we'll accumulate these counts later
+    std::vector<size_t> patch_counts(subdomains.size() + 1, 0);
+    for (auto i = 0U; i < subdomains.size(); ++i)
+    {
+      patch_counts[i] = _app.patch_size(subdomains[i]);
+    }
+    std::exclusive_scan(patch_counts.begin(), patch_counts.end(), patch_counts.begin(), 0);
 
-    // // Retrieve the values from MOOSE
-    // std::vector<double> moose_T;
-    // int rank;
-    // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    // for (auto i = 0U; i < subdomains.size(); ++i)
-    // {
-    //   std::vector<double> buf;
-    //   // Set the face temperatures on the OpenFOAM mesh
-    //   for (size_t elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
-    //   {
-    //     auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
-    //     assert(elem_ptr);
-    //     // Find the dof number of the element
-    //     auto dof = elem_ptr->dof_number(var.number(), _face_T, 0);
+    // Retrieve the values from MOOSE
+    std::vector<double> moose_T;
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    for (auto i = 0U; i < subdomains.size(); ++i)
+    {
+      std::vector<double> buf;
+      // Set the face temperatures on the OpenFOAM mesh
+      for (size_t elem = patch_counts[i]; elem < patch_counts[i + 1]; ++elem)
+      {
+        auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
+        assert(elem_ptr);
+        // Find the dof number of the element
+        auto dof = elem_ptr->dof_number(var.number(), _face_T, 0);
 
-    //     // Insert the element's temperature into the moose temperature vector
-    //     var.sys().solution().get({dof}, buf);
-    //     std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
-    //   }
-    //   _app.set_patch_face_t(subdomains[i], moose_T);
-    //   moose_T.clear();
-    // }
+        // Insert the element's temperature into the MOOSE temperature vector
+        var.sys().solution().get({dof}, buf);
+        std::copy(buf.begin(), buf.end(), std::back_inserter(moose_T));
+      }
+      // Copy the values from the MOOSE temperature vector into OpenFOAM's
+      _app.set_patch_face_t(subdomains[i], moose_T);
+      moose_T.clear();
+    }
+    _interface->write();
   }
 }
 

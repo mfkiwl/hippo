@@ -59,7 +59,7 @@
     [temp]
         family = LAGRANGE
         order = FIRST
-        initial_condition = 350
+        initial_condition = 400
     []
 []
 
@@ -87,10 +87,10 @@
         type = DirichletBC
         variable = temp
         boundary = solid_bottom
-        value = 400
+        value = 600
     []
     [fluid_interface]
-        type = MatchedValueBC
+        type = CoupledVarNeumannBC
         variable = temp
         boundary = solid_top
         v = fluid_T
@@ -114,7 +114,7 @@
     type = Transient
     start_time = 0
     end_time = 1
-    dt = 0.05
+    dt = 0.1
 
     solve_type = 'PJFNK'
 

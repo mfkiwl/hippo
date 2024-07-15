@@ -75,5 +75,6 @@ public:
   Foam::Time & getRuntime();
   Foam::argList & getArglist();
   Foam::fvMesh & getMesh();
+  void write();
 };
 }
