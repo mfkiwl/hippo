@@ -647,14 +647,14 @@ public:
     std::copy(moose_T.begin(), moose_T.end(), patch.begin());
     // printf("setting patch face temp: %f\n", moose_T.at(0));
 
-    printf("patch_id: %d\n", patch_id);
-    printf("patch.size(): %d\n", patch.size());
-    printf("assigned values: \n");
-    for (auto v : patch)
-    {
-      printf("%f ", v);
-    }
-    printf("\n");
+    // printf("patch_id: %d\n", patch_id);
+    // printf("patch.size(): %d\n", patch.size());
+    // printf("assigned values: \n");
+    // for (auto v : patch)
+    // {
+    //   printf("%f ", v);
+    // }
+    // printf("\n");
   }
 };
 

@@ -10,85 +10,85 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      wallHeatFlux;
+    object      p;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 0 -3 0 0 0 0];
+dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 100000;
 
 boundaryField
 {
     left_back
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     left_bottom
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     left_left
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     left_front
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     left_top
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     int_back
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     int_bottom
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     int_front
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     int_top
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     right_back
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     right_bottom
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     right_front
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     right_right
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
     right_top
     {
         type            calculated;
-        value           uniform 0;
+        value           uniform 100000;
     }
 }
 

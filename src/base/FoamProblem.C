@@ -117,10 +117,10 @@ BuoyantFoamProblem::syncSolutions(Direction dir)
         auto elem_ptr = mesh.getElemPtr(elem + mesh.rank_element_offset);
         assert(elem_ptr);
         auto dof = elem_ptr->dof_number(var.sys().number(), _face_T, 0);
-        var.sys().solution().set(dof, foam_vol_t[elem]);
+        // var.sys().solution().set(dof, foam_vol_t[elem]);
 
         // TODO: does the above need to be negative, such that the flux is reversed? I.e.:
-        // var.sys().solution().set(dof, -foam_vol_t[elem]);
+        var.sys().solution().set(dof, -foam_vol_t[elem]);
       }
     }
     var.sys().solution().close();
