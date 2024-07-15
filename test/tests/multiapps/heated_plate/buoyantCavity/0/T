@@ -20,26 +20,36 @@ internalField   uniform 300;
 
 boundaryField
 {
-    fluid_back
+    left_back
     {
         type            zeroGradient;
     }
-    fluid_bottom
+    left_bottom
+    {
+        type            zeroGradient;
+    }
+    left_left
+    {
+        type            zeroGradient;
+    }
+    left_front
+    {
+        type            zeroGradient;
+    }
+    left_top
+    {
+        type            zeroGradient;
+    }
+    int_back
+    {
+        type            zeroGradient;
+    }
+    int_bottom
     {
         type            fixedValue;
-        value           nonuniform List<scalar> 
-70
+        value           nonuniform List<scalar>
+20
 (
-444.049757975666
-444.048416747366
-444.04672971351
-444.044601515125
-444.04192914679
-444.038635165856
-444.034748992306
-444.030555882072
-444.026759135492
-444.024421267421
 442.788456170898
 442.788456170897
 442.788456170892
@@ -60,62 +70,34 @@ boundaryField
 442.788456170904
 442.788456170904
 442.788456170896
-444.024421267407
-444.026759135478
-444.030555882058
-444.034748992291
-444.038635165841
-444.041929146775
-444.044601515111
-444.046729713495
-444.048416747351
-444.049757975651
-444.050831579611
-444.051698451073
-444.052405002034
-444.05298636085
-444.05346913367
-444.053873569647
-444.054215188892
-444.054505984447
-444.054755304199
-444.054970498101
-444.055157395006
-444.055320656077
-444.055464038572
-444.055590594275
-444.055702819946
-444.055802772303
-444.055892156601
-444.055972395384
-444.056044682257
-444.056110024232
-444.056169275317
-444.056223163326
-444.056272311416
-444.056317255494
-444.056358458362
-444.056396321282
-444.056431193476
-444.056463379962
-444.056493148068
-444.056520732853
 )
 ;
     }
-    fluid_left
+    int_front
     {
         type            zeroGradient;
     }
-    fluid_front
+    int_top
     {
         type            zeroGradient;
     }
-    fluid_right
+    right_back
     {
         type            zeroGradient;
     }
-    fluid_top
+    right_bottom
+    {
+        type            zeroGradient;
+    }
+    right_front
+    {
+        type            zeroGradient;
+    }
+    right_right
+    {
+        type            zeroGradient;
+    }
+    right_top
     {
         type            zeroGradient;
     }

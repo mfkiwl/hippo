@@ -20,42 +20,98 @@ internalField   uniform 0.12;
 
 boundaryField
 {
-    fluid_back
+    left_back
     {
         beta1           0.075;
         blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    fluid_bottom
+    left_bottom
     {
         beta1           0.075;
         blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    fluid_left
+    left_left
     {
         beta1           0.075;
         blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    fluid_front
+    left_front
     {
         beta1           0.075;
         blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    fluid_right
+    left_top
     {
         beta1           0.075;
         blended         0;
         type            omegaWallFunction;
         value           uniform 0.12;
     }
-    fluid_top
+    int_back
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    int_bottom
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    int_front
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    int_top
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    right_back
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    right_bottom
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    right_front
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    right_right
+    {
+        beta1           0.075;
+        blended         0;
+        type            omegaWallFunction;
+        value           uniform 0.12;
+    }
+    right_top
     {
         beta1           0.075;
         blended         0;

@@ -20,32 +20,72 @@ internalField   uniform 0.000375;
 
 boundaryField
 {
-    fluid_back
+    left_back
     {
         type            kqRWallFunction;
         value           uniform 0.000375;
     }
-    fluid_bottom
+    left_bottom
     {
         type            kqRWallFunction;
         value           uniform 0.000375;
     }
-    fluid_left
+    left_left
     {
         type            kqRWallFunction;
         value           uniform 0.000375;
     }
-    fluid_front
+    left_front
     {
         type            kqRWallFunction;
         value           uniform 0.000375;
     }
-    fluid_right
+    left_top
     {
         type            kqRWallFunction;
         value           uniform 0.000375;
     }
-    fluid_top
+    int_back
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    int_bottom
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    int_front
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    int_top
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    right_back
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    right_bottom
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    right_front
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    right_right
+    {
+        type            kqRWallFunction;
+        value           uniform 0.000375;
+    }
+    right_top
     {
         type            kqRWallFunction;
         value           uniform 0.000375;

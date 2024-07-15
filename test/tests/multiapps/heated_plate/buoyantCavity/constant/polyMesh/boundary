@@ -14,49 +14,105 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-6
+14
 (
-    fluid_back
+    left_back
     {
         type            wall;
         physicalType    patch;
-        nFaces          1050;
+        nFaces          150;
         startFace       2015;
     }
-    fluid_bottom
+    left_bottom
     {
         type            wall;
         physicalType    patch;
-        nFaces          70;
-        startFace       3065;
+        nFaces          10;
+        startFace       2165;
     }
-    fluid_left
+    left_left
     {
         type            wall;
         physicalType    patch;
         nFaces          15;
-        startFace       3135;
+        startFace       2175;
     }
-    fluid_front
+    left_front
     {
         type            wall;
         physicalType    patch;
-        nFaces          1050;
-        startFace       3150;
+        nFaces          150;
+        startFace       2190;
     }
-    fluid_right
+    left_top
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          10;
+        startFace       2340;
+    }
+    int_back
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          300;
+        startFace       2350;
+    }
+    int_bottom
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          20;
+        startFace       2650;
+    }
+    int_front
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          300;
+        startFace       2670;
+    }
+    int_top
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          20;
+        startFace       2970;
+    }
+    right_back
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          600;
+        startFace       2990;
+    }
+    right_bottom
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          40;
+        startFace       3590;
+    }
+    right_front
+    {
+        type            wall;
+        physicalType    patch;
+        nFaces          600;
+        startFace       3630;
+    }
+    right_right
     {
         type            wall;
         physicalType    patch;
         nFaces          15;
-        startFace       4200;
+        startFace       4230;
     }
-    fluid_top
+    right_top
     {
         type            wall;
         physicalType    patch;
-        nFaces          70;
-        startFace       4215;
+        nFaces          40;
+        startFace       4245;
     }
 )
 

@@ -21,7 +21,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1;
+endTime         10;
 
 deltaT          0.05;
 
@@ -29,7 +29,7 @@ writeControl    timeStep;
 
 writeInterval   1;
 
-purgeWrite      20;
+purgeWrite      200;
 
 writeFormat     ascii;
 
@@ -45,18 +45,7 @@ runTimeModifiable true;
 
 functions
 {
-
 #includeFunc wallHeatFlux
-//wallHeatFlux1
-//{
-//  // Mandatory entries (unmodifiable)
-//  type wallHeatFlux;
-//  libs (fieldFunctionObjects);
-//  // Optional entries (runtime modifiable)
-//  patches (fluid_bottom);
-//  qr qr;
-//}
-
 }
 
 // ************************************************************************* //

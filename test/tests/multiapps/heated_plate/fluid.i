@@ -1,7 +1,7 @@
 [Mesh]
   type = FoamMesh
   foam_args = '-case buoyantCavity'
-  foam_patch = 'fluid_bottom'
+  foam_patch = 'int_bottom'
   dim=2
 []
 

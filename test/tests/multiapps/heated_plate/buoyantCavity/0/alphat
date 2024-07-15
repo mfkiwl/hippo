@@ -20,37 +20,85 @@ internalField   uniform 0;
 
 boundaryField
 {
-    fluid_back
+    left_back
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    fluid_bottom
+    left_bottom
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    fluid_left
+    left_left
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    fluid_front
+    left_front
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    fluid_right
+    left_top
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;
         value           uniform 0;
     }
-    fluid_top
+    int_back
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    int_bottom
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    int_front
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    int_top
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    right_back
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    right_bottom
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    right_front
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    right_right
+    {
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           uniform 0;
+    }
+    right_top
     {
         type            compressible::alphatWallFunction;
         Prt             0.85;

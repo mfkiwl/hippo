@@ -20,32 +20,72 @@ internalField   uniform 100000;
 
 boundaryField
 {
-    fluid_back
+    left_back
     {
         type            calculated;
         value           uniform 100000;
     }
-    fluid_bottom
+    left_bottom
     {
         type            calculated;
         value           uniform 100000;
     }
-    fluid_left
+    left_left
     {
         type            calculated;
         value           uniform 100000;
     }
-    fluid_front
+    left_front
     {
         type            calculated;
         value           uniform 100000;
     }
-    fluid_right
+    left_top
     {
         type            calculated;
         value           uniform 100000;
     }
-    fluid_top
+    int_back
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    int_bottom
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    int_front
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    int_top
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    right_back
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    right_bottom
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    right_front
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    right_right
+    {
+        type            calculated;
+        value           uniform 100000;
+    }
+    right_top
     {
         type            calculated;
         value           uniform 100000;
